@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>?</title>
+      <style>
+         body {
+         background-color: black;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+         margin: 0;
+         overflow: hidden;
+         flex-direction: column;
+         gap: 10px;
+         }
+         .question-mark {
+         font-size: 100px;
+         color: white;
+         position: relative;
+         cursor: pointer;
+         }
+         .question-mark::before,
+         .question-mark::after {
+         content: '?';
+         position: absolute;
+         left: 0;
+         top: 0;
+         mix-blend-mode: lighten;
+         }
+         .question-mark::before {
+         color: #ff008a;
+         transform: translateX(var(--glitch-x-before));
+         }
+         .question-mark::after {
+         color: #00ffff;
+         transform: translateX(var(--glitch-x-after));
+         }
+         .text {
+         font-size: 50px;
+         color: white;
+         position: relative;
+         display: none;
+         }
+         .text::before,
+         .text::after {
+         content: 'wrong way';
+         position: absolute;
+         left: 0;
+         top: 0;
+         mix-blend-mode: lighten;
+         }
+         .text::before {
+         color: #ff008a;
+         transform: translateX(var(--glitch-x-before));
+         }
+         .text::after {
+         color: #00ffff;
+         transform: translateX(var(--glitch-x-after));
+         }
+      </style>
+   </head>
+   <body>
+      <div class="question-mark">?</div>
+      <div class="text"></div>
+      <script>
+         function rand(min, max) {
+           return Math.floor(Math.random() * (max - min + 1)) + min;
+         }
+         
+         function glitch() {
+           document.documentElement.style.setProperty('--glitch-x-before', `${rand(-5, 5)}px`);
+           document.documentElement.style.setProperty('--glitch-x-after', `${rand(-5, 5)}px`);
+         
+           setTimeout(glitch, 44);
+         }
+         
+         const questionMark = document.querySelector('.question-mark');
+         const text = document.querySelector('.text');
+         
+         questionMark.addEventListener('click', () => {
+           questionMark.style.display = 'none';
+           text.style.display = 'block';
+         
+           setTimeout(() => {
+             text.style.display = 'none';
+             questionMark.style.display = 'block';
+           }, 2000);
+         });
+         
+         
+         
+         glitch();
+      </script>
+   </body>
+</html>
